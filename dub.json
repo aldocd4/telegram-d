@@ -1,0 +1,13 @@
+{
+	"name": "telegram-d",
+	"authors": [
+		"Aldo"
+	],
+	"dependencies": {
+		"requests": "~>0.7.2",
+		"asdf": "~>0.1.8"
+	},
+	"description": "telegram API for D language",
+	"copyright": "Copyright © 2018, Aldo",
+	"license": "none"
+}

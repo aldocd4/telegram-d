@@ -1,2 +1,2 @@
 # telegram-d
-Telegram API implementation in D language
+Telegram BOT API implemented in D language

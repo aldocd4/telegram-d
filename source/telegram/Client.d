@@ -1,5 +1,7 @@
 module telegram.Client;
 
+debug import std.stdio;
+
 import std.json;
 import std.string : format;
 import std.concurrency;
@@ -99,6 +101,21 @@ class Client
         return 0;
     }
 
+    public auto sendMessage(in string message, in int chatId, in string replyMarkup = null)
+    {
+        string url = "sendMessage?text=%s&chat_id=%d".format(message, chatId);
+
+        if(replyMarkup != null)
+        {
+            url ~= "&parse_mode=Markdown&reply_markup=%s".format(replyMarkup);
+        }
+
+        string json = this.getJson(url, 10);
+
+        auto jsonObject = json.deserialize!(ApiResponse!(MessageEntry));
+        return jsonObject;
+    }
+
     /**
      * Performs an HTTP GET request and returns a JSON value
      * Params:
@@ -109,7 +126,10 @@ class Client
         auto request = Request();
         request.timeout = timeout.seconds;
 
-        auto response = request.get(this.m_botURL ~ route);
+        auto url = this.m_botURL ~ route;
+        auto response = request.get(url);
+
+        debug writeln("GET ", url);
 
         return response.responseBody.toString();
     }

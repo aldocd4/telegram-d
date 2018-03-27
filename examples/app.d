@@ -16,7 +16,9 @@ void main()
 	{
 		string content = message.text;
 
-		writeln("New message : ", content);
+		string user = "%s (%s)".format(message.chat.username, message.chat.first_name);
+
+		client.sendMessage("Message received from %s: %s".format(user, content), message.chat.id);
 	};
 
 	client.listenForUpdates!(BasicUpdateListener);
